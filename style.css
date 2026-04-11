@@ -1,13 +1,37 @@
+:root {
+    --bg-body: #f0f2f5;
+    --bg-card: #ffffff;
+    --text-primary: #1a73e8;
+    --text-secondary: #3c4043;
+    --bg-section: #f8f9fa;
+    --border-input: #dadce0;
+    --bg-result: #e8f0fe;
+    --switch-bg: #ccc;
+}
+
+body.dark {
+    --bg-body: #121212;
+    --bg-card: #1e1e1e;
+    --text-primary: #8ab4f8;
+    --text-secondary: #e8eaed;
+    --bg-section: #2d2e31;
+    --border-input: #5f6368;
+    --bg-result: #172b4d;
+    --switch-bg: #1a73e8;
+}
+
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f0f2f5;
+    background-color: var(--bg-body);
+    color: var(--text-secondary);
     display: flex;
     justify-content: center;
     padding: 10px;
+    transition: all 0.3s ease;
 }
 
 .container {
-    background: #fff;
+    background: var(--bg-card);
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -15,38 +39,94 @@ body {
     max-width: 450px;
 }
 
-h2 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
+/* Estilização do Switch Animado */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#theme-text {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--text-secondary);
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 24px;
+    position: relative;
+    width: 44px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: var(--switch-bg);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 16px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 16px;
+    border-radius: 50%;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* Restante do seu layout */
+h2 { text-align: center; color: var(--text-primary); margin-bottom: 20px; }
 
 .section-title {
-    background: #f8f9fa;
+    background: var(--bg-section);
     padding: 5px 10px;
     margin: 15px 0 10px 0;
     font-size: 0.85rem;
     font-weight: bold;
-    color: #5f6368;
-    border-left: 4px solid #1a73e8;
+    color: var(--text-secondary);
+    border-left: 4px solid var(--text-primary);
 }
 
 .input-group { margin-bottom: 12px; }
 
-label { display: block; margin-bottom: 4px; font-size: 0.85rem; color: #3c4043; }
+label { display: block; margin-bottom: 4px; font-size: 0.85rem; color: var(--text-secondary); }
 
-input {
+input[type="number"], 
+input[type="datetime-local"] {
     width: 100%;
     padding: 10px;
-    border: 1px solid #dadce0;
+    background-color: var(--bg-card);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-input);
     border-radius: 6px;
     box-sizing: border-box;
     font-size: 1rem;
     outline: none;
 }
 
-input:focus { border-color: #1a73e8; }
-
-button {
+button#btn-calcular {
     width: 100%;
     padding: 14px;
-    background-color: #1a73e8;
+    background-color: var(--text-primary);
     color: white;
     border: none;
     border-radius: 8px;
@@ -58,18 +138,12 @@ button {
 
 .result-area {
     margin-top: 20px;
-    background: #e8f0fe;
+    background: var(--bg-result);
     padding: 15px;
     border-radius: 8px;
-    color: #1967d2;
 }
 
-.res-item { 
-    display: flex; 
-    justify-content: space-between; 
-    margin-bottom: 8px; 
-    align-items: center;
-}
+.res-item { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
 
 .res-total {
     display: flex; 
@@ -80,12 +154,6 @@ button {
     color: #188038;
 }
 
-.valor-unidade {
-    white-space: nowrap;
-    font-weight: bold;
-}
+body.dark .res-total { color: #81c995; }
 
-#resHoraBase {
-    font-weight: bold;
-    color: #444;
-}
+.valor-unidade { white-space: nowrap; font-weight: bold; }
