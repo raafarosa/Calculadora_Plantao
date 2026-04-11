@@ -34,7 +34,7 @@ body {
     background: var(--bg-card);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 450px;
 }
@@ -89,12 +89,16 @@ body {
     border-radius: 50%;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
     transform: translateX(20px);
 }
 
 /* Restante do seu layout */
-h2 { text-align: center; color: var(--text-primary); margin-bottom: 20px; }
+h2 {
+    text-align: center;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
 
 .section-title {
     background: var(--bg-section);
@@ -106,11 +110,18 @@ h2 { text-align: center; color: var(--text-primary); margin-bottom: 20px; }
     border-left: 4px solid var(--text-primary);
 }
 
-.input-group { margin-bottom: 12px; }
+.input-group {
+    margin-bottom: 12px;
+}
 
-label { display: block; margin-bottom: 4px; font-size: 0.85rem; color: var(--text-secondary); }
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
 
-input[type="number"], 
+input[type="number"],
 input[type="datetime-local"] {
     width: 100%;
     padding: 10px;
@@ -143,10 +154,15 @@ button#btn-calcular {
     border-radius: 8px;
 }
 
-.res-item { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: center; }
+.res-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    align-items: center;
+}
 
 .res-total {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
     font-size: 1.2rem;
     font-weight: bold;
@@ -157,12 +173,18 @@ button#btn-calcular {
 .res-estimado {
     margin-top: 10px;
     padding-top: 10px;
-    border-top: 1px dashed var(--text-secondary); /* Uma divisória sutil */
+    border-top: 1px dashed var(--text-secondary);
+    /* Uma divisória sutil */
     font-weight: bold;
     color: var(--text-primary);
     font-size: 1.1rem;
 }
 
-body.dark .res-total { color: #81c995; }
+body.dark .res-total {
+    color: #81c995;
+}
 
-.valor-unidade { white-space: nowrap; font-weight: bold; }
+.valor-unidade {
+    white-space: nowrap;
+    font-weight: bold;
+}

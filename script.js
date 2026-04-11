@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (currentTheme === 'dark') {
         document.body.classList.add('dark');
-        if(toggleSwitch) toggleSwitch.checked = true;
+        if (toggleSwitch) toggleSwitch.checked = true;
     }
 
-    if(toggleSwitch) {
+    if (toggleSwitch) {
         toggleSwitch.addEventListener('change', (e) => {
             if (e.target.checked) {
                 document.body.classList.add('dark');
@@ -32,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const minuto = String(agora.getMinutes()).padStart(2, '0');
 
     const dataHoraAtual = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
-    
-    if(document.getElementById('fim')) document.getElementById('fim').value = dataHoraAtual;
-    if(document.getElementById('pausaFim')) document.getElementById('pausaFim').value = dataHoraAtual;
+
+    if (document.getElementById('fim')) document.getElementById('fim').value = dataHoraAtual;
+    if (document.getElementById('pausaFim')) document.getElementById('pausaFim').value = dataHoraAtual;
 });
 
 // --- Função Principal de Cálculo ---
@@ -42,7 +42,7 @@ function calcularPlantao() {
     const salario = parseFloat(document.getElementById('salarioBruto').value);
     const inicioPlantao = new Date(document.getElementById('inicio').value);
     const fimPlantao = new Date(document.getElementById('fim').value);
-    
+
     const pIniStr = document.getElementById('pausaInicio').value;
     const pFimStr = document.getElementById('pausaFim').value;
     const inicioPausa = pIniStr ? new Date(pIniStr) : null;
@@ -61,14 +61,14 @@ function calcularPlantao() {
     while (tempoAtual < fimPlantao) {
         let estaNaPausa = (inicioPausa && fimPausa && tempoAtual >= inicioPausa && tempoAtual < fimPausa);
         if (!estaNaPausa) {
-            let diaSemana = tempoAtual.getDay(); 
+            let diaSemana = tempoAtual.getDay();
             let mesDia = tempoAtual.toISOString().substring(5, 10);
             let hora = tempoAtual.getHours();
-            
+
             let isDouble = (diaSemana === 0 || FERIADOS_FEDERAIS.includes(mesDia));
             let multiplicador = isDouble ? 2.0 : 1.5;
             let valorMinutoComExtra = (valorHoraBase * multiplicador) / 60;
-            
+
             if (isDouble) ganho100 += valorMinutoComExtra;
             else ganho50 += valorMinutoComExtra;
 
@@ -92,18 +92,18 @@ function calcularPlantao() {
     document.getElementById('res100').innerText = `R$ ${ganho100.toFixed(2)}`;
     document.getElementById('resNoturno').innerText = `R$ ${adicionalNoturno.toFixed(2)}`;
     document.getElementById('resTotal').innerText = `R$ ${totalExtras.toFixed(2)}`;
-    
+
     // Atualiza o novo campo de Salário Bruto Estimado
-    if(document.getElementById('resBrutoEstimado')) {
+    if (document.getElementById('resBrutoEstimado')) {
         document.getElementById('resBrutoEstimado').innerText = `R$ ${brutoEstimado.toFixed(2)}`;
     }
-    
+
     document.getElementById('resultado').style.display = 'block';
 }
 
 // --- Registro do Service Worker (PWA) ---
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js').catch(() => {});
-  });
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js').catch(() => { });
+    });
 }
