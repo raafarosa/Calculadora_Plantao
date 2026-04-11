@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dataHoraAtual = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
     
-    // Verifica se os elementos existem antes de preencher para evitar erros no console
     if(document.getElementById('fim')) document.getElementById('fim').value = dataHoraAtual;
     if(document.getElementById('pausaFim')) document.getElementById('pausaFim').value = dataHoraAtual;
 });
@@ -66,7 +65,6 @@ function calcularPlantao() {
             let mesDia = tempoAtual.toISOString().substring(5, 10);
             let hora = tempoAtual.getHours();
             
-            // 0 = Domingo
             let isDouble = (diaSemana === 0 || FERIADOS_FEDERAIS.includes(mesDia));
             let multiplicador = isDouble ? 2.0 : 1.5;
             let valorMinutoComExtra = (valorHoraBase * multiplicador) / 60;
@@ -83,13 +81,23 @@ function calcularPlantao() {
         tempoAtual.setMinutes(tempoAtual.getMinutes() + 1);
     }
 
+    // --- Lógica do Novo Campo ---
+    const totalExtras = ganho50 + ganho100 + adicionalNoturno;
+    const brutoEstimado = salario + totalExtras;
+
     // Exibição dos resultados no HTML
     document.getElementById('resHoraBase').innerText = `R$ ${valorHoraBase.toFixed(2)}`;
     document.getElementById('resTotalHoras').innerText = (minutosEfetivos / 60).toFixed(2);
     document.getElementById('res50').innerText = `R$ ${ganho50.toFixed(2)}`;
     document.getElementById('res100').innerText = `R$ ${ganho100.toFixed(2)}`;
     document.getElementById('resNoturno').innerText = `R$ ${adicionalNoturno.toFixed(2)}`;
-    document.getElementById('resTotal').innerText = `R$ ${(ganho50 + ganho100 + adicionalNoturno).toFixed(2)}`;
+    document.getElementById('resTotal').innerText = `R$ ${totalExtras.toFixed(2)}`;
+    
+    // Atualiza o novo campo de Salário Bruto Estimado
+    if(document.getElementById('resBrutoEstimado')) {
+        document.getElementById('resBrutoEstimado').innerText = `R$ ${brutoEstimado.toFixed(2)}`;
+    }
+    
     document.getElementById('resultado').style.display = 'block';
 }
 

@@ -154,6 +154,15 @@ button#btn-calcular {
     color: #188038;
 }
 
+.res-estimado {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--text-secondary); /* Uma divisória sutil */
+    font-weight: bold;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
 body.dark .res-total { color: #81c995; }
 
 .valor-unidade { white-space: nowrap; font-weight: bold; }
