@@ -1,69 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Plantão Pro</title>
-    <link rel="icon" type="image/x-icon" href="icone.ico">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Plantão Pro</title>
+  <link rel="icon" type="image/x-icon" href="icone.ico">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a73e8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Plantão Pro">
+  <link rel="apple-touch-icon" href="icone.ico">
 </head>
+
 <body>
-    <div class="container">
-        <h2>Gerenciador de Plantão</h2>
-        
-        <div class="input-group">
-            <label>Salário Bruto (R$)</label>
-            <input type="number" id="salarioBruto" placeholder="Ex: 3500">
-        </div>
+  <div class="container">
+    <h2>Gerenciador de Plantão</h2>
 
-        <div class="section-title">Expediente</div>
-        <div class="input-group">
-            <label>Início do Plantão</label>
-            <input type="datetime-local" id="inicio" class="data-automatica">
-        </div>
-
-        <div class="input-group">
-            <label>Fim do Plantão</label>
-            <input type="datetime-local" id="fim" class="data-automatica">
-        </div>
-
-        <div class="section-title">Intervalo / Pausa</div>
-        <div class="input-group">
-            <label>Início da Pausa</label>
-            <input type="datetime-local" id="pausaInicio" class="data-automatica">
-        </div>
-        <div class="input-group">
-            <label>Fim da Pausa</label>
-            <input type="datetime-local" id="pausaFim" class="data-automatica">
-        </div>
-
-        <button onclick="calcularPlantao()">Calcular Ganhos</button>
-
-        <div id="resultado" class="result-area" style="display: none;">
-            <h3>Resumo Detalhado</h3>
-            <div class="res-item">
-                <span>Horas Líquidas:</span>
-                <span class="valor-unidade"><span id="resTotalHoras">0</span>h</span>
-            </div>
-            <div class="res-item">
-                <span>Horas 50%:</span>
-                <span id="res50">R$ 0,00</span>
-            </div>
-            <div class="res-item">
-                <span>Horas 100%:</span>
-                <span id="res100">R$ 0,00</span>
-            </div>
-            <div class="res-item">
-                <span>Adicional Noturno (20%):</span>
-                <span id="resNoturno">R$ 0,00</span>
-            </div>
-            <hr>
-            <div class="res-total">
-                <span>Total a Receber:</span>
-                <span id="resTotal">R$ 0,00</span>
-            </div>
-        </div>
+    <div class="input-group">
+      <label>Salário Bruto (R$)</label>
+      <input type="number" id="salarioBruto" placeholder="Ex: 3500">
     </div>
-    <script src="script.js"></script>
+
+    <div class="section-title">Expediente</div>
+    <div class="input-group">
+      <label>Início do Plantão</label>
+      <input type="datetime-local" id="inicio">
+    </div>
+
+    <div class="input-group">
+      <label>Fim do Plantão</label>
+      <input type="datetime-local" id="fim">
+    </div>
+
+    <div class="section-title">Intervalo / Pausa</div>
+    <div class="input-group">
+      <label>Início da Pausa</label>
+      <input type="datetime-local" id="pausaInicio">
+    </div>
+    <div class="input-group">
+      <label>Fim da Pausa</label>
+      <input type="datetime-local" id="pausaFim">
+    </div>
+
+    <button onclick="calcularPlantao()">Calcular Ganhos</button>
+
+    <div id="resultado" class="result-area" style="display: none;">
+      <h3>Resumo Detalhado</h3>
+      <div class="res-item">
+        <span>Valor da Hora Base:</span>
+        <span id="resHoraBase">R$ 0,00</span>
+      </div>
+      <div class="res-item">
+        <span>Horas Líquidas:</span>
+        <span class="valor-unidade"><span id="resTotalHoras">0</span>h</span>
+      </div>
+      <div class="res-item">
+        <span>Horas 50%:</span>
+        <span id="res50">R$ 0,00</span>
+      </div>
+      <div class="res-item">
+        <span>Horas 100%:</span>
+        <span id="res100">R$ 0,00</span>
+      </div>
+      <div class="res-item">
+        <span>Adicional Noturno (20%):</span>
+        <span id="resNoturno">R$ 0,00</span>
+      </div>
+      <hr>
+      <div class="res-total">
+        <span>Total a Receber:</span>
+        <span id="resTotal">R$ 0,00</span>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
 </body>
+
 </html>
