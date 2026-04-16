@@ -13,106 +13,133 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Plantão Pro">
   <link rel="apple-touch-icon" href="icone.ico">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <div class="theme-switch-wrapper">
-      <span id="theme-text">Modo Escuro</span>
-      <label class="theme-switch">
-        <input type="checkbox" id="checkbox">
-        <div class="slider round"></div>
-      </label>
-    </div>
-
-    <h2>Gerenciador de Plantão</h2>
-
-    <div class="input-group">
-      <label>Salário Bruto (R$)</label>
-      <input type="number" id="salarioBruto" placeholder="Ex: 3500">
-    </div>
-
-    <div class="input-group">
-      <label>Identificação do Plantão</label>
-      <input type="text" id="nomePlantao" placeholder="Ex: On-call BOFA">
-    </div>
-
-    <div class="section-title">Expediente</div>
-    <div class="input-group">
-      <label>Início do Plantão</label>
-      <input type="datetime-local" id="inicio">
-    </div>
-
-    <div class="input-group">
-      <label>Fim do Plantão</label>
-      <input type="datetime-local" id="fim">
-    </div>
-
-    <div class="section-header-row">
-      <div class="section-title">Intervalo / Pausa</div>
-      <div class="pause-switch-wrapper">
-        <span>Sem pausa</span>
+  <div class="main-layout">
+    <div class="container">
+      <div class="theme-switch-wrapper">
+        <span id="theme-text">Modo Escuro</span>
         <label class="theme-switch">
-          <input type="checkbox" id="semPausa">
+          <input type="checkbox" id="checkbox">
           <div class="slider round"></div>
         </label>
       </div>
-    </div>
 
-    <div id="container-pausa">
+      <h2>Gerenciador de Plantão</h2>
+
+      <div class="import-area">
+        <div class="section-title">Histórico de Ganhos</div>
+        <label for="input-file-topo" class="import-dropzone">
+          <span>📂 Carregar Histórico Anterior (.csv)</span>
+          <input type="file" id="input-file-topo" accept=".csv" onchange="importarCSV(this)">
+        </label>
+      </div>
+
       <div class="input-group">
-        <label>Início da Pausa</label>
-        <input type="datetime-local" id="pausaInicio">
+        <label>Salário Bruto (R$)</label>
+        <input type="number" id="salarioBruto" placeholder="Ex: 3500">
       </div>
+
       <div class="input-group">
-        <label>Fim da Pausa</label>
-        <input type="datetime-local" id="pausaFim">
+        <label>Identificação do Plantão</label>
+        <input type="text" id="nomePlantao" placeholder="Ex: On-call BOFA">
+      </div>
+
+      <div class="section-title">Expediente</div>
+      <div class="input-group">
+        <label>Início do Plantão</label>
+        <input type="datetime-local" id="inicio">
+      </div>
+
+      <div class="input-group">
+        <label>Fim do Plantão</label>
+        <input type="datetime-local" id="fim">
+      </div>
+
+      <div class="section-header-row">
+        <div class="section-title">Intervalo / Pausa</div>
+        <div class="pause-switch-wrapper">
+          <span>Sem pausa</span>
+          <label class="theme-switch">
+            <input type="checkbox" id="semPausa">
+            <div class="slider round"></div>
+          </label>
+        </div>
+      </div>
+
+      <div id="container-pausa">
+        <div class="input-group">
+          <label>Início da Pausa</label>
+          <input type="datetime-local" id="pausaInicio">
+        </div>
+        <div class="input-group">
+          <label>Fim da Pausa</label>
+          <input type="datetime-local" id="pausaFim">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="btn-calcular" class="btn-primary" onclick="calcularPlantao()">Calcular Ganhos</button>
+        <button id="btn-limpar" class="btn-danger" onclick="limparCampos()">Limpar</button>
+      </div>
+
+      <div id="resultado" class="result-area">
+        <h3>Resumo Detalhado</h3>
+        <div class="res-item">
+          <span>Valor da Hora Base:</span>
+          <span id="resHoraBase">R$ 0,00</span>
+        </div>
+        <div class="res-item">
+          <span>Horas Líquidas:</span>
+          <span class="valor-unidade"><span id="resTotalHoras">0</span>h</span>
+        </div>
+        <div class="res-item">
+          <span>Horas 50%:</span>
+          <span id="res50">R$ 0,00</span>
+        </div>
+        <div class="res-item">
+          <span>Horas 100%:</span>
+          <span id="res100">R$ 0,00</span>
+        </div>
+        <div class="res-item">
+          <span>Adicional Noturno (20%):</span>
+          <span id="resNoturno">R$ 0,00</span>
+        </div>
+        <hr class="divider">
+        <div class="res-total">
+          <span>Total a Receber:</span>
+          <span id="resTotal">R$ 0,00</span>
+        </div>
+        <div class="res-item res-estimado" id="resBrutoEstimado">
+          <span>Salário Bruto Estimado:</span>
+          <strong>R$ 0,00</strong>
+        </div>
+
+        <div class="file-actions">
+          <button id="btn-exportar" class="btn-success" onclick="exportarParaCSV()">💾 Baixar Tudo (.csv)</button>
+          <label for="input-file" class="btn-outline">📂 Importar Histórico Anterior</label>
+          <input type="file" id="input-file" accept=".csv" onchange="importarCSV(this)">
+        </div>
       </div>
     </div>
 
-    <div class="button-row">
-      <button id="btn-calcular" class="btn-primary" onclick="calcularPlantao()">Calcular Ganhos</button>
-      <button id="btn-limpar" class="btn-danger" onclick="limparCampos()">Limpar</button>
-    </div>
-
-    <div id="resultado" class="result-area">
-      <h3>Resumo Detalhado</h3>
-      <div class="res-item">
-        <span>Valor da Hora Base:</span>
-        <span id="resHoraBase">R$ 0,00</span>
+    <div id="dashboard-lateral" class="dashboard-container">
+      <h3>Painel de Indicadores</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-label">Média p/ Hora</span>
+          <span id="dash-media-hora" class="stat-value">R$ 0,00</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Plantões</span>
+          <span id="dash-qtd-plantoes" class="stat-value">0</span>
+        </div>
       </div>
-      <div class="res-item">
-        <span>Horas Líquidas:</span>
-        <span class="valor-unidade"><span id="resTotalHoras">0</span>h</span>
+      <div class="chart-wrapper">
+        <canvas id="chartGanhos"></canvas>
       </div>
-      <div class="res-item">
-        <span>Horas 50%:</span>
-        <span id="res50">R$ 0,00</span>
-      </div>
-      <div class="res-item">
-        <span>Horas 100%:</span>
-        <span id="res100">R$ 0,00</span>
-      </div>
-      <div class="res-item">
-        <span>Adicional Noturno (20%):</span>
-        <span id="resNoturno">R$ 0,00</span>
-      </div>
-      <hr class="divider">
-      <div class="res-total">
-        <span>Total a Receber:</span>
-        <span id="resTotal">R$ 0,00</span>
-      </div>
-      <div class="res-item res-estimado">
-        <span>Salário Bruto Estimado:</span>
-        <span id="resBrutoEstimado">R$ 0,00</span>
-      </div>
-
-      <div class="file-actions">
-        <button id="btn-exportar" class="btn-success" onclick="exportarParaCSV()">💾 Baixar Tudo (.csv)</button>
-        <label for="input-file" class="btn-outline">📂 Importar Histórico Anterior</label>
-        <input type="file" id="input-file" accept=".csv" onchange="importarCSV(this)">
-      </div>
-
       <div id="painel-acumulado" class="panel-history">
         <div id="res-acumulado-texto"></div>
         <div class="table-container">
@@ -129,10 +156,11 @@
           </table>
         </div>
       </div>
+      <div class="dash-footer">
+        <p>Dados baseados no histórico acumulado.</p>
+      </div>
     </div>
   </div>
-
   <script src="script.js"></script>
 </body>
-
 </html>
