@@ -83,7 +83,7 @@ function calcularPlantao() {
     document.getElementById('resNoturno').innerText = `R$ ${adicionalNoturno.toFixed(2)}`;
     document.getElementById('resTotal').innerText = totalTxt;
     document.getElementById('resBrutoEstimado').innerHTML = `<span>Salário Bruto Estimado:</span> <strong>R$ ${(salario + extras).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong>`;
-    
+
     document.getElementById('resultado').style.display = 'block';
     adicionarAoHistorico(nome, inicio.toLocaleDateString('pt-BR'), horasLqd, totalTxt);
 }
@@ -116,7 +116,7 @@ function renderizarTabela() {
 
 function atualizarDashboard(totalGeral, horasGerais) {
     const media = horasGerais > 0 ? totalGeral / horasGerais : 0;
-    document.getElementById('dash-media-hora').innerText = `R$ ${media.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    document.getElementById('dash-media-hora').innerText = `R$ ${media.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
     document.getElementById('dash-qtd-plantoes').innerText = historicoPlantoes.length;
 
     const dadosAgrupados = {};
