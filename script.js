@@ -74,7 +74,7 @@ function calcularPlantao() {
 
     const extras = ganho50 + ganho100 + adicionalNoturno;
     const horasLqd = (minutosEfetivos / 60).toFixed(2);
-    const totalTxt = `R$ ${extras.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    const totalTxt = `R$ ${extras.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}`;
 
     document.getElementById('resHoraBase').innerText = `R$ ${valorHoraBase.toFixed(2)}`;
     document.getElementById('resTotalHoras').innerText = horasLqd;
@@ -82,7 +82,7 @@ function calcularPlantao() {
     document.getElementById('res100').innerText = `R$ ${ganho100.toFixed(2)}`;
     document.getElementById('resNoturno').innerText = `R$ ${adicionalNoturno.toFixed(2)}`;
     document.getElementById('resTotal').innerText = totalTxt;
-    document.getElementById('resBrutoEstimado').innerHTML = `<span>Salário Bruto Estimado:</span> <strong>R$ ${(salario + extras).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</strong>`;
+    document.getElementById('resBrutoEstimado').innerHTML = `<span>Salário Bruto Estimado:</span> <strong>R$ ${(salario + extras).toLocaleString('pt-BR', { maximumFractionDigits: 2 })}</strong>`;
 
     document.getElementById('resultado').style.display = 'block';
     adicionarAoHistorico(nome, inicio.toLocaleDateString('pt-BR'), horasLqd, totalTxt);
