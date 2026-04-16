@@ -6,7 +6,9 @@
     --bg-section: #f8f9fa;
     --border-input: #dadce0;
     --bg-result: #e8f0fe;
-    --switch-bg: #ccc;
+    --slider-off: #ccc;
+    --color-success: #34a853;
+    --color-danger: #ea4335;
 }
 
 body.dark {
@@ -17,7 +19,7 @@ body.dark {
     --bg-section: #2d2e31;
     --border-input: #5f6368;
     --bg-result: #172b4d;
-    --switch-bg: #1a73e8;
+    --slider-off: #5f6368;
 }
 
 body {
@@ -39,19 +41,22 @@ body {
     max-width: 450px;
 }
 
-/* Estilização do Switch Animado */
-.theme-switch-wrapper {
+/* Switch (Geral para Tema e Pausa) */
+.theme-switch-wrapper,
+.pause-switch-wrapper {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     gap: 10px;
+}
+
+.theme-switch-wrapper {
+    justify-content: flex-end;
     margin-bottom: 10px;
 }
 
 #theme-text {
     font-size: 0.8rem;
     font-weight: bold;
-    color: var(--text-secondary);
 }
 
 .theme-switch {
@@ -66,13 +71,13 @@ body {
 }
 
 .slider {
-    background-color: var(--switch-bg);
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
+    background-color: var(--slider-off);
     position: absolute;
-    right: 0;
+    cursor: pointer;
     top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     transition: .4s;
     border-radius: 34px;
 }
@@ -80,34 +85,50 @@ body {
 .slider:before {
     background-color: #fff;
     bottom: 4px;
+    left: 4px;
     content: "";
     height: 16px;
-    left: 4px;
+    width: 16px;
     position: absolute;
     transition: .4s;
-    width: 16px;
     border-radius: 50%;
+}
+
+/* Cor quando ATIVADO */
+input:checked+.slider {
+    background-color: var(--text-primary);
 }
 
 input:checked+.slider:before {
     transform: translateX(20px);
 }
 
-/* Restante do seu layout */
+/* Tipografia e Seções */
 h2 {
     text-align: center;
     color: var(--text-primary);
     margin-bottom: 20px;
 }
 
-.section-title {
-    background: var(--bg-section);
-    padding: 5px 10px;
+.section-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin: 15px 0 10px 0;
+    background: var(--bg-section);
+    border-left: 4px solid var(--text-primary);
+    padding-right: 10px;
+}
+
+.section-title {
+    padding: 5px 10px;
     font-size: 0.85rem;
     font-weight: bold;
-    color: var(--text-secondary);
-    border-left: 4px solid var(--text-primary);
+}
+
+.pause-switch-wrapper {
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 
 .input-group {
@@ -118,11 +139,11 @@ label {
     display: block;
     margin-bottom: 4px;
     font-size: 0.85rem;
-    color: var(--text-secondary);
 }
 
 input[type="number"],
-input[type="datetime-local"] {
+input[type="datetime-local"],
+input[type="text"] {
     width: 100%;
     padding: 10px;
     background-color: var(--bg-card);
@@ -134,31 +155,75 @@ input[type="datetime-local"] {
     outline: none;
 }
 
-button#btn-calcular {
-    width: 100%;
-    padding: 14px;
-    background-color: var(--text-primary);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
+/* Botões */
+.button-row {
+    display: flex;
+    gap: 10px;
     margin-top: 15px;
 }
 
+button {
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: filter 0.2s;
+}
+
+.btn-primary {
+    flex: 3;
+    padding: 14px;
+    background-color: var(--text-primary);
+    color: white;
+}
+
+.btn-danger {
+    flex: 1;
+    padding: 14px;
+    background-color: var(--color-danger);
+    color: white;
+}
+
+.btn-success {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--color-success);
+    color: white;
+    margin-bottom: 10px;
+}
+
+.btn-outline {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid var(--text-primary);
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+/* Resultados */
 .result-area {
     margin-top: 20px;
     background: var(--bg-result);
     padding: 15px;
     border-radius: 8px;
+    display: none;
 }
 
 .res-item {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
-    align-items: center;
+}
+
+.divider {
+    margin: 15px 0;
+    border: 0;
+    border-top: 1px solid var(--border-input);
 }
 
 .res-total {
@@ -166,25 +231,67 @@ button#btn-calcular {
     justify-content: space-between;
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 10px;
     color: #188038;
-}
-
-.res-estimado {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px dashed var(--text-secondary);
-    /* Uma divisória sutil */
-    font-weight: bold;
-    color: var(--text-primary);
-    font-size: 1.1rem;
 }
 
 body.dark .res-total {
     color: #81c995;
 }
 
-.valor-unidade {
-    white-space: nowrap;
+.res-estimado {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--text-secondary);
+    font-size: 1.1rem;
+    display: flex; /* Alinha texto e valor na mesma linha */
+    justify-content: space-between; /* Joga o valor para a direita */
+    align-items: center;
+}
+
+/* Garante que o valor em negrito use a cor azul do tema */
+.res-estimado strong {
+    color: var(--text-primary);
     font-weight: bold;
+}
+
+/* Histórico e Tabela */
+.panel-history {
+    display: none;
+    margin-top: 15px;
+    padding: 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--text-primary);
+    border-radius: 8px;
+}
+
+.table-container {
+    margin-top: 10px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+}
+
+th,
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-input);
+}
+
+th {
+    color: var(--text-primary);
+    text-transform: uppercase;
+}
+
+#input-file {
+    display: none;
+}
+
+/* Feedback Visual para campos desativados */
+#container-pausa {
+    transition: opacity 0.3s ease;
 }
