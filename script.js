@@ -1,4 +1,4 @@
-const FERIADOS_FEDERAIS = ["01-01", "04-21", "05-01", "09-07", "10-12", "11-02", "11-15", "11-20", "12-25"];
+window.FERIADOS_FEDERAIS = window.FERIADOS_FEDERAIS || ["01-01", "04-21", "05-01", "09-07", "10-12", "11-02", "11-15", "11-20", "12-25"];
 let historicoPlantoes = [];
 let meuGrafico = null; // Variável para controle do gráfico
 
@@ -63,7 +63,7 @@ function calcularPlantao() {
     while (tempo < fim) {
         const estaNaPausa = (pIni && pFim && tempo >= pIni && tempo < pFim);
         if (!estaNaPausa) {
-            const isDouble = (tempo.getDay() === 0 || FERIADOS_FEDERAIS.includes(tempo.toISOString().substring(5, 10)));
+            const isDouble = (tempo.getDay() === 0 || window.FERIADOS_FEDERAIS.includes(tempo.toISOString().substring(5, 10)));
             const valorMin = (valorHoraBase * (isDouble ? 2.0 : 1.5)) / 60;
             if (isDouble) ganho100 += valorMin; else ganho50 += valorMin;
             if (tempo.getHours() >= 22 || tempo.getHours() < 5) adicionalNoturno += ((valorHoraBase * 0.20) / 60) * 1.1428;
