@@ -116,7 +116,7 @@ function renderizarTabela() {
 
 function atualizarDashboard(totalGeral, horasGerais) {
     const media = horasGerais > 0 ? totalGeral / horasGerais : 0;
-    document.getElementById('dash-media-hora').innerText = `R$ ${media.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+    document.getElementById('dash-media-hora').innerText = `R$ ${media.toLocaleString('pt-BR', { maximumFractionDigits: 2 })}`;
     document.getElementById('dash-qtd-plantoes').innerText = historicoPlantoes.length;
 
     const dadosAgrupados = {};
