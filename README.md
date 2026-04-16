@@ -26,3 +26,5 @@ Uma solução web completa e inteligente para profissionais que realizam escalas
   - **Chart.js:** Biblioteca leve para renderização dos gráficos analíticos.
   - **PWA (Service Workers):** Suporte offline e instalação como aplicativo nativo.
 -----
+
+###### Dados 100% locais, dados a serem analisados são 100% baseados em csv salvos localmente e gerados pela página.
