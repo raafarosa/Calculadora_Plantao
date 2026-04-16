@@ -1,5 +1,5 @@
 // Sempre que fizer uma atualização importante, mude a versão aqui (v1 -> v2...)
-const CACHE_NAME = 'plantao-pro-v1.1'; 
+const CACHE_NAME = 'plantao-pro-v1.1';
 const assets = [
   './',
   './index.html',
