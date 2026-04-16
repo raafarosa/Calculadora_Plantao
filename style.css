@@ -136,12 +136,26 @@ body {
     background: var(--bg-section);
     border-left: 4px solid var(--text-primary);
     margin-bottom: 10px;
+    padding: 5px 10px;
+    /* Ajuste para centralizar verticalmente */
 }
 
 .section-title {
-    padding: 5px 10px;
     font-weight: bold;
     font-size: 0.85rem;
+}
+
+/* --- CORREÇÃO AQUI: Wrapper da Pausa --- */
+.pause-switch-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espaço entre o texto e o switch */
+}
+
+.pause-switch-wrapper span {
+    font-size: 0.75rem;
+    font-weight: bold;
 }
 
 .input-group {
@@ -248,25 +262,25 @@ body.dark .res-total {
     color: var(--text-primary);
 }
 
-/* Tema Switch */
-.theme-switch-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.theme-switch {
+/* --- CORREÇÃO AQUI: Estilos Genéricos do Switch --- */
+/* Isso garante que qualquer .theme-switch dentro do container funcione */
+.container .theme-switch {
     position: relative;
+    display: inline-block;
+    /* Importante para o alinhamento */
     width: 44px;
     height: 24px;
+    margin: 0;
+    /* Remove margens indesejadas */
 }
 
-.theme-switch input {
-    display: none;
+.container .theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
+/* Estilo do Slider (o trilho) */
 .slider {
     position: absolute;
     cursor: pointer;
@@ -274,11 +288,13 @@ body.dark .res-total {
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--slider-off);
+    background-color: var(--slider-off);
+    /* Cor quando desligado */
+    transition: .4s;
     border-radius: 34px;
-    transition: 0.4s;
 }
 
+/* Estilo da bolinha (pseudo-elemento :before) */
 .slider:before {
     position: absolute;
     content: "";
@@ -286,15 +302,18 @@ body.dark .res-total {
     width: 16px;
     left: 4px;
     bottom: 4px;
-    background: white;
+    background-color: white;
+    transition: .4s;
     border-radius: 50%;
-    transition: 0.4s;
 }
 
+/* Estilo quando o checkbox está MARCADO */
 input:checked+.slider {
-    background: var(--text-primary);
+    background-color: var(--text-primary);
+    /* Cor quando ligado */
 }
 
+/* Move a bolinha quando marcado */
 input:checked+.slider:before {
     transform: translateX(20px);
 }
